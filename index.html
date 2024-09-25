@@ -47,6 +47,7 @@
         border: 1px solid #ccc;
         border-radius: 4px;
         transition: border 0.2s;
+        text-align: center;
       }
       input:focus,
       select:focus {
@@ -106,6 +107,12 @@
       <div class="container">
         <h1>Inbound Audit</h1>
 
+        <label for="sexo">Sexo:</label>
+        <select id="sexo">
+          <option value="él">Él</option>
+          <option value="ella">Ella</option>
+        </select>
+
         <label for="nombre">Nombre del representante:</label>
         <input type="text" id="nombre" />
 
@@ -141,6 +148,7 @@
 
     <script>
       document.getElementById("generarTexto").onclick = function () {
+        const sexo = document.getElementById("sexo").value;
         const nombre = document.getElementById("nombre").value;
         const is = document.getElementById("is").value;
         const meli = document.getElementById("meli").value;
@@ -148,7 +156,9 @@
         const ubicacion = document.getElementById("ubicacion").value;
         const costo = document.getElementById("costo").value;
 
-        const texto = `Debido a una diferencia en la IS ${is} el día ${fecha}, se detectó que el representante ${nombre} eliminó la meli ${meli} en ${ubicacion}, a pesar de que físicamente se encontraba en la ubicación correspondiente. Esta acción provocó la generación de un IA falso. En consecuencia, se ha procedido a realizar la corrección por parte del equipo de auditorías de LP para evitar una posible afectación futura de $${costo}.`;
+        const pronombre =
+          sexo === "él" ? "el representante" : "la representante";
+        const texto = `Debido a una diferencia en la IS ${is} el día ${fecha}, se detectó que ${pronombre} ${nombre} eliminó la meli ${meli} en ${ubicacion}, a pesar de que físicamente se encontraba en la ubicación correspondiente. Esta acción provocó la generación de un IA falso. En consecuencia, se ha procedido a realizar la corrección por parte del equipo de auditorías de LP para evitar una posible afectación futura de $${costo}.`;
 
         document.getElementById("textoGenerado").innerText = texto;
         document.getElementById("copiarTexto").style.display = "block";
@@ -170,6 +180,7 @@
       };
 
       document.getElementById("limpiar").onclick = function () {
+        document.getElementById("sexo").value = "él";
         document.getElementById("nombre").value = "";
         document.getElementById("is").value = "";
         document.getElementById("meli").value = "";
