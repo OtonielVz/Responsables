@@ -1,280 +1,184 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
+    <!--BY Otoniel PalaciosVz-->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Responsables Inbound Audit</title>
-<link rel="icon" href="https://http2.mlstatic.com/frontend-assets/ui-navigation/5.10.0/mercadolibre/favicon.svg" type="image/x-icon">
-    <!--    By Otoniel Palacios LP-->
+    <link
+      rel="icon"
+      href="https://http2.mlstatic.com/frontend-assets/ui-navigation/5.10.0/mercadolibre/favicon.svg"
+      type="image/x-icon"
+    />
+    <title>Inbound Audit</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #f4f4f4;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      label {
+        margin-top: 10px;
+      }
+      input,
+      select,
+      button {
+        padding: 10px;
+        width: 90%;
+        margin-top: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: border 0.2s;
+      }
+      input:focus,
+      select:focus {
+        border-color: #007bff;
+        outline: none;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      .output-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        margin-left: 20px;
+      }
+      h2 {
+        margin-top: 20px;
+        text-align: center;
+      }
+      p {
+        border: 1px dashed #ccc;
+        padding: 10px;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+        word-wrap: break-word;
+        width: 300px;
+      }
+      .mensaje {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #28a745;
+        color: white;
+        padding: 10px;
+        border-radius: 4px;
+        transition: opacity 0.5s;
+      }
+      .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        width: 60%;
+      }
+    </style>
   </head>
-  <style>
-    /*BY Otoniel PalaciosVz*/
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-        sans-serif;
-      --bg-color: #d7d7d7;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-    }
-    ul {
-      display: flex;
-      justify-content: space-evenly;
-    }
-    li {
-      list-style: none;
-      text-align: center;
-      align-content: center;
-    }
-    a {
-      width: 25em;
-      height: 4em;
-      text-decoration: none;
-      color: #fff;
-      font-weight: 500;
-      background-color: #346dfc;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    a:hover {
-      background-color: #4d7efb;
-    }
-    .text-generator {
-      background-color: #fff;
-      margin-top: 20px;
-      display: flex;
-      width: 50em;
-      height: 46em;
-      align-items: center;
-      flex-direction: column;
-      border-radius: 8px;
-      box-shadow: 15px -2px 19px -8px rgba(0, 0, 0, 0.4);
-      -webkit-box-shadow: 15px -2px 19px -8px rgba(0, 0, 0, 0.4);
-      -moz-box-shadow: 15px -2px 19px -8px rgba(0, 0, 0, 0.4);
-      position: relative;
-    }
-    .toast {
-      background-color: #ffffff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 14em;
-      height: 3em;
-      font-weight: 500;
-      margin-top: 10px;
-      position: absolute;
-      z-index: 1;
-      right: 10px;
-      bottom: 40px;
-      border-bottom: 4px solid green;
-    }
-    h1 {
-      text-align: center;
-      margin-top: 20px;
-      color: #5e5e5e;
-      border-bottom: 1px solid #d0d0d0;
-    }
-    form {
-      margin-top: 20px;
-      display: flex;
-      width: 25em;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    input {
-      margin-top: 20px;
-      width: 30em;
-      height: 2em;
-      outline: none;
-      border-radius: 3px;
-      border: none;
-      background-color: #e9e9e9;
-      caret-color: red;
-      padding-left: 20px;
-    }
-    button {
-      margin-top: 10px;
-      width: 20em;
-      height: 2em;
-      background-color: #346dfc;
-      color: #fff;
-      font-weight: 500;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #4d7efb;
-    }
-    .name {
-      text-transform: uppercase;
-    }
-    .copy-text {
-      background-color: #f3f3f3;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 10px;
-      height: 17em;
-      width: 45em;
-      border-radius: 8px;
-      position: relative;
-      border: 1px solid #dcdcdc;
-    }
-    p {
-      margin-top: 10px;
-      text-align: center;
-      padding-top: 30px;
-      display: none;
-      font-size: 15px;
-      text-align: justify;
-    }
-    .btms {
-      width: 100%;
-      height: 3em;
-      position: absolute;
-      bottom: 0;
-      text-align: center;
-    }
-    .button {
-      margin: 0;
-    }
-    #genero {
-      background-color: rgb(255, 255, 255);
-      width: 100%;
-      display: flex;
-      margin-top: 10px;
-      border: 2px solid #4d7efb;
-      border-radius: 100px;
-      outline: none;
-      color: #3b3b3b;
-      text-align: center;
-    }
-    .gener {
-      color: #ffffff;
-      font-weight: 600;
-      background-color: #4f4f4f;
-    }
-    img {
-      position: absolute;
-      left: 50px;
-      top: 20px;
-      opacity: 0.1;
-    }
-    #copy {
-      display: none;
-    }
-  </style>
   <body>
-    <div id="toastBox"></div>
-    <section>
-      <div class="text-generator">
-        <h1>Responsable IA-PA</h1>
-        <img src="https://i.ibb.co/WsVSGj7/logo-black.png" width="100" />
-        <form>
-          <select id="genero">
-            <option value="select" class="gener" disabled>
-              Género del representante
-            </option>
-            <option value="el">el representante</option>
-            <option value="la">la representante</option>
-          </select>
-          <input
-            id="repName"
-            type="text"
-            placeholder="Nombre del representante"
-          />
-          <input id="is" type="text" placeholder="IS" required />
-          <input id="name" type="text" placeholder="Meli" required />
+    <div class="wrapper">
+      <div class="container">
+        <h1>Inbound Audit</h1>
 
-          <input id="date" type="date" placeholder="Dia/mes/año" required />
-          <input
-            id="lost"
-            type="text"
-            placeholder="Ubicación/Mezzanine"
-            required
-          /><input id="valor" type="text" placeholder="Costo $" required />
-          <button id="generate" type="submit">Generar</button>
-        </form>
+        <label for="nombre">Nombre del representante:</label>
+        <input type="text" id="nombre" />
 
-        <div class="copy-text">
-          <p>
-            Debido a una diferencia en la IS <span class="is"></span> el día
-            <span class="date"></span>,se detectó que
-            <span class="el-la"></span> represéntante
-            <span class="repName"></span> eliminó la meli
-            <span class="name"></span> en <span class="mezzanine"></span>, a
-            pesar de que físicamente se encontraba en la ubicación
-            correspondiente. Esta acción provocó la generación de un IA falso.
-            En consecuencia, se ha procedido a realizar la corrección por parte
-            del equipo de auditorías de LP para evitar una posible afectación
-            futura de $<span class="cost"></span> .
-          </p>
-          <div class="btms">
-            <button id="copy" class="button">Copiar texto</button>
-            <button id="clear" class="button">Limpiar</button>
-          </div>
-        </div>
+        <label for="is">IS:</label>
+        <input type="text" id="is" />
+
+        <label for="meli">Meli:</label>
+        <input type="text" id="meli" />
+
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" />
+
+        <label for="ubicacion">Ubicación:</label>
+        <input type="text" id="ubicacion" />
+
+        <label for="costo">Costo $:</label>
+        <input type="text" id="costo" />
+
+        <button id="generarTexto">Generar Texto</button>
+        <button id="copiarTexto" style="display: none">Copiar Texto</button>
+        <button id="limpiar">Limpiar</button>
       </div>
-    </section>
+
+      <div class="output-container">
+        <h2>Texto Generado:</h2>
+        <p id="textoGenerado"></p>
+      </div>
+    </div>
+
+    <div class="mensaje" id="mensajeCopiado">
+      Texto copiado al portapapeles!
+    </div>
+
+    <script>
+      document.getElementById("generarTexto").onclick = function () {
+        const nombre = document.getElementById("nombre").value;
+        const is = document.getElementById("is").value;
+        const meli = document.getElementById("meli").value;
+        const fecha = document.getElementById("fecha").value;
+        const ubicacion = document.getElementById("ubicacion").value;
+        const costo = document.getElementById("costo").value;
+
+        const texto = `Debido a una diferencia en la IS ${is} el día ${fecha}, se detectó que el representante ${nombre} eliminó la meli ${meli} en ${ubicacion}, a pesar de que físicamente se encontraba en la ubicación correspondiente. Esta acción provocó la generación de un IA falso. En consecuencia, se ha procedido a realizar la corrección por parte del equipo de auditorías de LP para evitar una posible afectación futura de $${costo}.`;
+
+        document.getElementById("textoGenerado").innerText = texto;
+        document.getElementById("copiarTexto").style.display = "block";
+      };
+
+      document.getElementById("copiarTexto").onclick = function () {
+        const texto = document.getElementById("textoGenerado").innerText;
+        navigator.clipboard.writeText(texto).then(() => {
+          const mensaje = document.getElementById("mensajeCopiado");
+          mensaje.style.display = "block";
+          setTimeout(() => {
+            mensaje.style.opacity = "0";
+            setTimeout(() => {
+              mensaje.style.display = "none";
+              mensaje.style.opacity = "1";
+            }, 500);
+          }, 1500);
+        });
+      };
+
+      document.getElementById("limpiar").onclick = function () {
+        document.getElementById("nombre").value = "";
+        document.getElementById("is").value = "";
+        document.getElementById("meli").value = "";
+        document.getElementById("fecha").value = "";
+        document.getElementById("ubicacion").value = "";
+        document.getElementById("costo").value = "";
+        document.getElementById("textoGenerado").innerText = "";
+        document.getElementById("copiarTexto").style.display = "none";
+      };
+    </script>
   </body>
-  <script>
-    //Por Otoniel Palacios
-    const $Name = document.getElementById("name");
-    const $repName = document.getElementById("repName");
-    const $valor = document.getElementById("valor");
-    const $cost = document.querySelector(".cost");
-    const $is = document.getElementById("is");
-    const $day = document.getElementById("date");
-    const $ubication = document.getElementById("lost");
-    const $generate = document.getElementById("generate");
-    const replaceName = document.querySelector(".name");
-    const replaceRepName = document.querySelector(".repName");
-    const replaceDay = document.querySelector(".date");
-    const replaceIs = document.querySelector(".is");
-    const replacePosition = document.querySelector(".mezzanine");
-    const replaceValor = document.querySelector(".cost");
-    const $copy = document.getElementById("copy");
-    const p = document.querySelector("p");
-    const $clear = document.getElementById("clear");
-    const $genero = document.getElementById("genero");
-    const replaceGenero = document.querySelector(".el-la");
-    const showmodal = document.getElementById("toastBox");
-
-    const a = $generate.addEventListener("click", (e) => {
-      e.preventDefault();
-      const rep = (replaceName.innerHTML = $Name.value);
-      const repNam = (replaceRepName.innerHTML = $repName.value);
-      const cost = (replaceValor.innerHTML = $valor.value);
-      const day = (replaceDay.innerHTML = $day.value);
-      const mz = (replacePosition.innerHTML = $ubication.value);
-      const is = (replaceIs.innerHTML = $is.value);
-      block = p.style.display = "block";
-      const gener = (replaceGenero.innerHTML = $genero.value);
-
-      const copy = $copy.addEventListener("click", () => {
-        navigator.clipboard.writeText(
-          `Debido a una diferencia en la IS ${is} durante el día ${day}, se detectó que el representate ${repNam} eliminó la meli ${name},en la ubicación ${mz}, a pesar de que físicamente se encontraba en la ubicación correspondiente. Esta acción provocó la generación de un IA falso. En consecuencia, se ha procedido a realizar la corrección por parte del equipo de auditorías de LP para evitar una posible afectación futura por $${cost}.`
-        );
-      });
-
-      const clear = $clear.addEventListener("click", () => {
-        block = p.style.display = "none";
-        $repName.value = "";
-        $day.value = "";
-        $ubication.value = "";
-      });
-    });
-  </script>
 </html>
