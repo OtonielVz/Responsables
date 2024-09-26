@@ -131,6 +131,9 @@
         <label for="costo">Costo $:</label>
         <input type="text" id="costo" />
 
+        <label for="piezas">Número de pzas. eliminadas:</label>
+        <input type="number" id="piezas" />
+
         <button id="generarTexto">Generar Texto</button>
         <button id="copiarTexto" style="display: none">Copiar Texto</button>
         <button id="limpiar">Limpiar</button>
@@ -155,10 +158,19 @@
         const fecha = document.getElementById("fecha").value;
         const ubicacion = document.getElementById("ubicacion").value;
         const costo = document.getElementById("costo").value;
+        const piezas = document.getElementById("piezas").value;
 
         const pronombre =
           sexo === "él" ? "el representante" : "la representante";
-        const texto = `Debido a una diferencia en la IS ${is} el día ${fecha}, se detectó que ${pronombre} ${nombre} eliminó la meli ${meli} en ${ubicacion}, a pesar de que físicamente se encontraba en la ubicación correspondiente. Esta acción provocó la generación de un IA falso. En consecuencia, se ha procedido a realizar la corrección por parte del equipo de auditorías de LP para evitar una posible afectación futura de $${costo}.`;
+
+        let textoPiezas;
+        if (piezas === "1") {
+          textoPiezas = `se detectó que ${pronombre} ${nombre} eliminó ${piezas} pza.`;
+        } else {
+          textoPiezas = `se detectó que ${pronombre} ${nombre} eliminó ${piezas} pzas.`;
+        }
+
+        const texto = `Debido a una diferencia en la IS ${is} el día ${fecha}, ${textoPiezas} de la meli ${meli} en ${ubicacion}, a pesar de que físicamente se encontraba en la ubicación correspondiente. Esta acción provocó la generación de un IA falso. En consecuencia, se ha procedido a realizar la corrección por parte del equipo de auditorías de LP para evitar una posible afectación futura de $${costo}.`;
 
         document.getElementById("textoGenerado").innerText = texto;
         document.getElementById("copiarTexto").style.display = "block";
@@ -187,6 +199,7 @@
         document.getElementById("fecha").value = "";
         document.getElementById("ubicacion").value = "";
         document.getElementById("costo").value = "";
+        document.getElementById("piezas").value = "";
         document.getElementById("textoGenerado").innerText = "";
         document.getElementById("copiarTexto").style.display = "none";
       };
