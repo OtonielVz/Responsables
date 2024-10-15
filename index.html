@@ -135,7 +135,6 @@
         <input type="number" id="piezas" />
 
         <button id="generarTexto">Generar Texto</button>
-        <button id="limpiar">Limpiar</button>
       </div>
 
       <div class="output-container">
@@ -170,7 +169,7 @@
           textoPiezas = `se detectó que ${pronombre} ${nombre} eliminó ${piezas} pzas.`;
         }
 
-        const texto = `Debido a una diferencia en la IS ${is} el día ${fecha}, ${textoPiezas} de la meli ${meli} en ${ubicacion}, a pesar de que físicamente se encontraba en la ubicación correspondiente. Esta acción provocó la generación de un IA falso. En consecuencia, se ha procedido a realizar la corrección por parte del equipo de auditorías de LP para evitar una posible afectación futura de $${costo}.`;
+        const texto = `Debido a una diferencia en la IS ${is} el día ${fecha}, ${textoPiezas} de la meli ${meli} en ${ubicacion}, a pesar de que físicamente se encontraba en la ubicación correspondiente. Esta acción provocó la generación de un IA falso. En consecuencia, se ha procedido a realizar la corrección por parte del equipo de auditorías de LP para evitar una posible afectación futura de $${costo} MXN.`;
 
         document.getElementById("textoGenerado").innerText = texto;
         document.getElementById("copiarTexto").style.display = "block";
