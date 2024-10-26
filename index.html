@@ -1,207 +1,256 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <!--BY Otoniel PalaciosVz-->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="icon"
-      href="https://i.ibb.co/G9T33Zy/favicon.png"
-      type="image/x-icon"
-    />
-    <title>Inbound Audit</title>
+<!--Archivo creado por Otoniel PalaciosVZ...T2 HalaMadrid-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoria | Inbound Audit</title>
+    <link rel="shortcut icon" href="https://i.ibb.co/G9T33Zy/favicon.png" type="image/x-icon">
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        margin: 0;
-        background-color: #f4f4f4;
-      }
-      .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        width: 90%;
-        padding: 20px;
-      }
-      h1 {
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      label {
-        margin-top: 10px;
-      }
-      input,
-      select,
-      button {
-        padding: 10px;
-        width: 90%;
-        margin-top: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        transition: border 0.2s;
-        text-align: center;
-      }
-      input:focus,
-      select:focus {
-        border-color: #007bff;
-        outline: none;
-      }
-      button {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        cursor: pointer;
-      }
-      button:hover {
-        background-color: #0056b3;
-      }
-      .output-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        margin-left: 20px;
-      }
-      h2 {
-        margin-top: 20px;
-        text-align: center;
-      }
-      p {
-        border: 1px dashed #ccc;
-        padding: 10px;
-        border-radius: 4px;
-        background-color: #f9f9f9;
-        word-wrap: break-word;
-        width: 300px;
-      }
-      .mensaje {
-        display: none;
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #28a745;
-        color: white;
-        padding: 10px;
-        border-radius: 4px;
-        transition: opacity 0.5s;
-      }
-      .wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        width: 60%;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="wrapper">
-      <div class="container">
-        <h1>Inbound Audit</h1>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Space+Grotesk:wght@300..700&display=swap');
 
-        <label for="sexo">Sexo:</label>
-        <select id="sexo">
-          <option value="él">Él</option>
-          <option value="ella">Ella</option>
-        </select>
-
-        <label for="nombre">Nombre del representante:</label>
-        <input type="text" id="nombre" />
-
-        <label for="is">IS:</label>
-        <input type="text" id="is" />
-
-        <label for="meli">Meli:</label>
-        <input type="text" id="meli" />
-
-        <label for="fecha">Fecha:</label>
-        <input type="date" id="fecha" />
-
-        <label for="ubicacion">Ubicación:</label>
-        <input type="text" id="ubicacion" />
-
-        <label for="costo">Costo $:</label>
-        <input type="text" id="costo" />
-
-        <label for="piezas">Número de pzas. eliminadas:</label>
-        <input type="number" id="piezas" />
-
-        <button id="generarTexto">Generar Texto</button>
-      </div>
-
-      <div class="output-container">
-        <h2>Texto Generado:</h2>
-        <p id="textoGenerado"></p>
-        <button id="copiarTexto" style="display: none">Copiar Texto</button>
-      </div>
-    </div>
-
-    <div class="mensaje" id="mensajeCopiado">
-      Texto copiado al portapapeles!
-    </div>
-
-    <script>
-      document.getElementById("generarTexto").onclick = function () {
-        const sexo = document.getElementById("sexo").value;
-        const nombre = document.getElementById("nombre").value;
-        const is = document.getElementById("is").value;
-        const meli = document.getElementById("meli").value;
-        const fecha = document.getElementById("fecha").value;
-        const ubicacion = document.getElementById("ubicacion").value;
-        const costo = document.getElementById("costo").value;
-        const piezas = document.getElementById("piezas").value;
-
-        const pronombre =
-          sexo === "él" ? "el representante" : "la representante";
-
-        let textoPiezas;
-        if (piezas === "1") {
-          textoPiezas = `se detectó que ${pronombre} ${nombre} eliminó ${piezas} pza.`;
-        } else {
-          textoPiezas = `se detectó que ${pronombre} ${nombre} eliminó ${piezas} pzas.`;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", serif;
         }
 
-        const texto = `Debido a una diferencia en la IS ${is} el día ${fecha}, ${textoPiezas} de la meli ${meli} en ${ubicacion}, a pesar de que físicamente se encontraba en la ubicación correspondiente. Esta acción provocó la generación de un IA falso. En consecuencia, se ha procedido a realizar la corrección por parte del equipo de auditorías de LP para evitar una posible afectación futura de $${costo} MXN.`;
+        body {
+            background-color: rgb(244, 244, 244);
+            display: flex;
+            gap: 80px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            width: 100%;
+            height: fit-content;
+        }
 
-        document.getElementById("textoGenerado").innerText = texto;
-        document.getElementById("copiarTexto").style.display = "block";
-      };
+        search {
+            background-color: #fff;
+            width: 40em;
+            height: 36em;
+            overflow: hidden;
+        }
 
-      document.getElementById("copiarTexto").onclick = function () {
-        const texto = document.getElementById("textoGenerado").innerText;
-        navigator.clipboard.writeText(texto).then(() => {
-          const mensaje = document.getElementById("mensajeCopiado");
-          mensaje.style.display = "block";
-          setTimeout(() => {
-            mensaje.style.opacity = "0";
-            setTimeout(() => {
-              mensaje.style.display = "none";
-              mensaje.style.opacity = "1";
-            }, 500);
-          }, 1500);
-        });
-      };
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 40px;
+        }
 
-      document.getElementById("limpiar").onclick = function () {
-        document.getElementById("sexo").value = "él";
-        document.getElementById("nombre").value = "";
-        document.getElementById("is").value = "";
-        document.getElementById("meli").value = "";
-        document.getElementById("fecha").value = "";
-        document.getElementById("ubicacion").value = "";
-        document.getElementById("costo").value = "";
-        document.getElementById("piezas").value = "";
-        document.getElementById("textoGenerado").innerText = "";
-        document.getElementById("copiarTexto").style.display = "none";
-      };
-    </script>
-  </body>
+        select {
+            grid-column: span 2;
+            text-align: center;
+            height: 2.4em;
+        }
+
+        label {
+            grid-column: 1;
+            font-weight: 500;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            outline: none;
+            caret-color: rgb(255, 0, 0);
+        }
+
+        button {
+            grid-column: span 2;
+            padding: 10px;
+            background-color: #333333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background-color: #4a4a4a;
+        }
+
+        .containerText {
+            background-color: white;
+            width: 28em;
+            height: 30em;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: auto;
+        }
+
+        p {
+            font-size: 14px;
+            text-align: justify;
+            padding: 10px;
+        }
+        .copiar{
+            width: 10em;
+            display: none;
+        }
+        .copiar:active{
+            background-color: #000;
+        }
+        .modal{
+            position: absolute;
+            top: 20px;
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 4px;
+            display: none;
+        }
+        h1{
+            padding: 10px;
+            text-align: center;
+        }
+        @media (max-width:760px){
+        search {
+            background-color: #fff;
+            width: 40em;
+            height: 44em;
+            overflow: hidden;
+        }
+        .modal{
+            position: absolute;
+            top: 830px;
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 4px;
+            display: block;
+        }
+        }
+    </style>
+</head>
+
+<body>
+    <search>
+        <h1>Inbound Audit</h1>
+        <form action="">
+
+            <select id="sexo">
+                <option disabled selected>Elige el sexo del/la representante</option>
+                <option value="el">El</option>
+                <option value="la">Ella</option>
+            </select>
+            <label for="nombre">Nombre del/la rep</label>
+            <input id="nombre" type="text" placeholder="Ej. Miguel Perez Garcia">
+            <label for="is">Inbound Shipment</label>
+            <input id="is" type="text" placeholder="Ej. 32694147">
+            <label for="meli">Código MELI</label>
+            <input id="meli" type="text" placeholder="Ej. EDMY09319">
+            <label for="fecha">Fecha del evento</label>
+            <input type="date" name="fecha" id="fecha">
+            <label for="ubicacion">Ubicación</label>
+            <input id="ubicacion" type="text" placeholder="MZ-BL-RK-TT">
+            <label for="costo">Costo MXN</label>
+            <input id="costo" type="number" placeholder="Ej. 4,560">
+            <label for="piezas">Número de piezas eliminadas</label>
+            <input type="number" id="piezas" placeholder="0">
+            <button id="generar">Generar texto</button>
+        </form>
+    </search>
+    <div class="containerText">
+        <h3 id="textoGenerado">🤖: Aún no hay nada por aquí😴...</h3>
+        <p class="textoOk"></p>
+        <button class="copiar">Copiar Texto</button>
+    </div>
+    <div class="modal">
+        <p>Texto copiado al portapales</p>
+    </div>
+
+</body>
+<script>
+    const $ = selector => document.querySelector(selector);
+    const $textoOk = $('.textoOk');
+    const $textoGenerado = $('#textoGenerado');
+    const $generar = $('#generar');
+    const $copiar = $('.copiar');
+    const $modal = $('.modal');
+
+
+
+
+    $generar.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const $nombreRep = $('#nombre').value;
+        const $is = $('#is').value;
+        const $sexo = $('#sexo').value;
+        const $meli = $('#meli').value;
+        const $fecha = $('#fecha').value;
+        const $ubicacion = $('#ubicacion').value;
+        const $costo = parseFloat($('#costo').value.replace(/,/g, ''));;
+        const $piezas = $('#piezas').value;
+
+        let prenombre;
+
+        if ($sexo === 'el') {
+            prenombre = 'el representante';
+        } else if ($sexo === 'la') {
+            prenombre = 'la representante';
+        }
+
+        let numeropiezas;
+        let encontraba;
+
+        if ($piezas == 1) {
+            numeropiezas = `${$piezas} pieza`
+            encontraba = 'encontraba'
+        } else if ($piezas >= 2) {
+            numeropiezas = `${$piezas} piezas`
+            encontraba = 'encontraban'
+        }
+        const costo = $costo.toLocaleString('es-MX', { style: 'decimal', minimumFractionDigits: 0 });
+
+ 
+
+        if (!$nombreRep || !$is || !$sexo || !$meli || !$fecha || !$ubicacion || isNaN($costo) || !$piezas) {
+            $textoGenerado.textContent = '🤖: Hay un problema 😥';
+            $textoOk.style.textAlign = 'center';
+            $textoOk.textContent = '🤔Te faltan campos por llenar o aún no escribes nada👀, revísalo e inténtalo de nuevo 🤗.';
+            return; 
+        }
+
+        
+    $textoGenerado.textContent = '🤖: Mensaje generado  con exito.'
+        const mensaje = `Debido a una diferencia en la IS ${$is} el día ${$fecha}, se detectó que ${prenombre} ${$nombreRep} eliminó ${numeropiezas} de la meli ${$meli} en ${$ubicacion}, a pesar de que físicamente se ${encontraba} en la ubicación correspondiente. Esta acción provocó la generación de un IA falso. En consecuencia, se ha procedido a realizar la corrección por parte del equipo de auditorías de LP para evitar una posible afectación futura de $${costo} MXN.`;
+
+        $textoOk.style.textAlign = 'justify';
+        $textoOk.textContent = mensaje;
+        $copiar.style.display='block';
+
+
+        $copiar.addEventListener('click',()=>{
+            navigator.clipboard.writeText(mensaje).then(()=>{
+            });
+            $modal.style.display='block';
+            $modal.style.opacity = '1';
+
+        setTimeout(()=>{
+            $modal.style.opacity = '0';
+            setTimeout(()=>{
+            $modal.style.display = 'none';
+            },500)
+        },2000);
+         }).catch(err =>{
+            $modal.textContent = 'Error al copiar el texto.'
+         });
+    });
+
+
+
+
+
+</script>
+
 </html>
