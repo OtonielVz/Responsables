@@ -1,256 +1,185 @@
 <!DOCTYPE html>
 <html lang="es">
-<!--Archivo creado por Otoniel PalaciosVZ...T2 HalaMadrid-->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auditoria | Inbound Audit</title>
-    <link rel="shortcut icon" href="https://i.ibb.co/jy1GrBx/logo-nuevo.png" type="image/x-icon">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Space+Grotesk:wght@300..700&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inbound Audit Mejorado</title>
+  <link rel="shortcut icon" href="https://i.ibb.co/jy1GrBx/logo-nuevo.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Poppins", serif;
-        }
+    body {
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
 
-        body {
-            background-color: rgb(244, 244, 244);
-            display: flex;
-            gap: 80px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
-            width: 100%;
-            height: fit-content;
-        }
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      max-width: 500px;
+      width: 100%;
+    }
 
-        search {
-            background-color: #fff;
-            width: 40em;
-            height: 36em;
-            overflow: hidden;
-        }
+    .output {
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
 
-        form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            padding: 40px;
-        }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-        select {
-            grid-column: span 2;
-            text-align: center;
-            height: 2.4em;
-        }
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
 
-        label {
-            grid-column: 1;
-            font-weight: 500;
-            color: #333;
-        }
+    form select,
+    form input {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
 
-        input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            outline: none;
-            caret-color: rgb(255, 0, 0);
-        }
+    form select {
+      grid-column: span 2;
+    }
 
-        button {
-            grid-column: span 2;
-            padding: 10px;
-            background-color: #333333;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-        }
+    .progress {
+      height: 10px;
+      background-color: #e0e0e0;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
 
-        button:hover {
-            background-color: #4a4a4a;
-        }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease, background-color 0.3s ease;
+    }
 
-        .containerText {
-            background-color: white;
-            width: 28em;
-            height: 30em;
-            display: flex;
-            justify-content: center;
-            text-align: center;
-            align-items: center;
-            flex-direction: column;
-            overflow: auto;
-        }
+    .output p {
+      font-size: 14px;
+      text-align: justify;
+    }
 
-        p {
-            font-size: 14px;
-            text-align: justify;
-            padding: 10px;
-        }
-        .copiar{
-            width: 10em;
-            display: none;
-        }
-        .copiar:active{
-            background-color: #000;
-        }
-        .modal{
-            position: absolute;
-            top: 20px;
-            background-color: #28a745;
-            color: #fff;
-            border-radius: 4px;
-            display: none;
-        }
-        h1{
-            padding: 10px;
-            text-align: center;
-        }
-        @media (max-width:760px){
-        search {
-            background-color: #fff;
-            width: 40em;
-            height: 44em;
-            overflow: hidden;
-        }
-        .modal{
-            position: absolute;
-            top: 830px;
-            background-color: #28a745;
-            color: #fff;
-            border-radius: 4px;
-            display: none;
-        }
-        }
-    </style>
+    .copy-btn {
+      margin-top: 15px;
+      padding: 10px 15px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: none;
+    }
+  </style>
 </head>
-
 <body>
-    <search>
-        <h1>Inbound Audit</h1>
-        <form action="">
-
-            <select id="sexo">
-                <option disabled selected>Elige el sexo del/la representante</option>
-                <option value="el">El</option>
-                <option value="la">Ella</option>
-            </select>
-            <label for="nombre">Nombre del/la rep</label>
-            <input id="nombre" type="text" placeholder="Ej. Miguel Perez Garcia">
-            <label for="is">Inbound Shipment</label>
-            <input id="is" type="text" placeholder="Ej. 32694147">
-            <label for="meli">Código MELI</label>
-            <input id="meli" type="text" placeholder="Ej. EDMY09319">
-            <label for="fecha">Fecha del evento</label>
-            <input type="date" name="fecha" id="fecha">
-            <label for="ubicacion">Ubicación</label>
-            <input id="ubicacion" type="text" placeholder="MZ-BL-RK-TT">
-            <label for="costo">Costo MXN</label>
-            <input id="costo" type="number" placeholder="Ej. 4,560">
-            <label for="piezas">Número de piezas eliminadas</label>
-            <input type="number" id="piezas" placeholder="0">
-            <button id="generar">Generar texto</button>
-        </form>
-    </search>
-    <div class="containerText">
-        <h3 id="textoGenerado">🤖: Aún no hay nada por aquí😴...</h3>
-        <p class="textoOk"></p>
-        <button class="copiar">Copiar Texto</button>
+  <div class="card">
+    <h1>Inbound Audit 🚀</h1>
+    <div class="progress">
+      <div class="progress-bar" id="progressBar"></div>
     </div>
-    <div class="modal">
-        <p>Texto copiado al portapales!</p>
-    </div>
+    <form id="auditForm">
+      <select id="sexo">
+        <option disabled selected>Elige el sexo del/la representante</option>
+        <option value="el">El</option>
+        <option value="la">Ella</option>
+      </select>
+      <input id="nombre" type="text" placeholder="Nombre del/la representante">
+      <input id="is" type="text" placeholder="Inbound Shipment">
+      <input id="meli" type="text" placeholder="Código MELI">
+      <input id="fecha" type="date">
+      <input id="ubicacion" type="text" placeholder="Ubicación (ej. MZ-BL-RK-TT)">
+      <input id="costo" type="text" placeholder="Costo MXN">
+      <input id="piezas" type="number" placeholder="Piezas eliminadas">
+    </form>
+  </div>
 
-</body>
-<script>
-    const $ = selector => document.querySelector(selector);
-    const $textoOk = $('.textoOk');
-    const $textoGenerado = $('#textoGenerado');
-    const $generar = $('#generar');
-    const $copiar = $('.copiar');
-    const $modal = $('.modal');
+  <div class="output">
+    <h3 id="textoGenerado">🤖 Aún no hay nada por aquí...</h3>
+    <p class="textoOk"></p>
+    <button class="copy-btn" id="copiar">📋 Copiar Texto</button>
+  </div>
 
+  <script>
+    const inputs = document.querySelectorAll('#auditForm input, #auditForm select');
+    const textoGenerado = document.getElementById('textoGenerado');
+    const textoOk = document.querySelector('.textoOk');
+    const copiarBtn = document.getElementById('copiar');
+    const progressBar = document.getElementById('progressBar');
 
-
-
-    $generar.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        const $nombreRep = $('#nombre').value;
-        const $is = $('#is').value;
-        const $sexo = $('#sexo').value;
-        const $meli = $('#meli').value;
-        const $fecha = $('#fecha').value;
-        const $ubicacion = $('#ubicacion').value;
-        const $costo = parseFloat($('#costo').value.replace(/,/g, ''));;
-        const $piezas = $('#piezas').value;
-
-        let prenombre;
-
-        if ($sexo === 'el') {
-            prenombre = 'el representante';
-        } else if ($sexo === 'la') {
-            prenombre = 'la representante';
-        }
-
-        let numeropiezas;
-        let encontraba;
-
-        if ($piezas == 1) {
-            numeropiezas = `${$piezas} pieza`
-            encontraba = 'encontraba'
-        } else if ($piezas >= 2) {
-            numeropiezas = `${$piezas} piezas`
-            encontraba = 'encontraban'
-        }
-        const costo = $costo.toLocaleString('es-MX', { style: 'decimal', minimumFractionDigits: 0 });
-
- 
-
-        if (!$nombreRep || !$is || !$sexo || !$meli || !$fecha || !$ubicacion || isNaN($costo) || !$piezas) {
-            $textoGenerado.textContent = '🤖: Hay un problema ❌';
-            $textoOk.style.textAlign = 'center';
-            $textoOk.textContent = '🤔Te faltan campos por llenar o aún no escribes nada👀, revísalo e inténtalo de nuevo 🤗.';
-            return; 
-        }
-
-        
-    $textoGenerado.textContent = '🤖: Texto generado  con éxito✅.'
-        const mensaje = `Debido a una diferencia en la IS ${$is} el día ${$fecha}, se detectó que ${prenombre} ${$nombreRep} eliminó ${numeropiezas} de la meli ${$meli} en ${$ubicacion}, a pesar de que físicamente se ${encontraba} en la ubicación correspondiente. Esta acción provocó la generación de un IA falso. En consecuencia, se ha procedido a realizar la corrección por parte del equipo de auditorías de LP para evitar una posible afectación futura de $${costo} MXN.`;
-
-        $textoOk.style.textAlign = 'justify';
-        $textoOk.textContent = mensaje;
-        $copiar.style.display='block';
-
-
-        $copiar.addEventListener('click',()=>{
-            navigator.clipboard.writeText(mensaje).then(()=>{
-            });
-            $modal.style.display='block';
-            $modal.style.opacity = '1';
-
-        setTimeout(()=>{
-            $modal.style.opacity = '0';
-            setTimeout(()=>{
-            $modal.style.display = 'none';
-            },500)
-        },2000);
-         }).catch(err =>{
-            $modal.textContent = 'Error al copiar el texto.'
-         });
+    inputs.forEach(input => {
+      input.addEventListener('input', update);
     });
 
+    function update() {
+      const sexo = document.getElementById('sexo').value;
+      const nombre = document.getElementById('nombre').value.trim();
+      const is = document.getElementById('is').value.trim();
+      const meli = document.getElementById('meli').value.trim();
+      const fecha = document.getElementById('fecha').value;
+      const ubicacion = document.getElementById('ubicacion').value.trim();
+      const costoRaw = document.getElementById('costo').value.trim();
+      const piezasRaw = document.getElementById('piezas').value.trim();
 
+      const completados = Array.from(inputs).filter(i => i.value.trim() !== '').length;
+      const total = inputs.length;
+      const progreso = (completados / total) * 100;
+      progressBar.style.width = progreso + '%';
+      progressBar.style.backgroundColor = `hsl(${progreso}, 80%, 50%)`;
 
+      if (!sexo || !nombre || !is || !meli || !fecha || !ubicacion || !costoRaw || !piezasRaw) {
+        textoGenerado.textContent = '🤖 Aún no hay nada por aquí...';
+        textoOk.textContent = '';
+        copiarBtn.style.display = 'none';
+        return;
+      }
 
+      const pronombre = sexo === 'el' ? 'el representante' : 'la representante';
+      const piezas = parseInt(piezasRaw);
+      const piezasTexto = piezas === 1 ? '1 pieza' : `${piezas} piezas`;
+      const verbo = piezas === 1 ? 'encontraba' : 'encontraban';
+      const costo = parseFloat(costoRaw.replace(/,/g, ''));
+      const costoFormateado = isNaN(costo) ? costoRaw : costo.toLocaleString('es-MX', { style: 'decimal', minimumFractionDigits: 0 });
 
-</script>
+      const mensaje = `Debido a una diferencia en la IS ${is} el día ${fecha}, se detectó que ${pronombre} ${nombre} eliminó ${piezasTexto} de la meli ${meli} en ${ubicacion}, a pesar de que físicamente se ${verbo} en la ubicación correspondiente. Esta acción provocó la generación de un IA falso. En consecuencia, se ha procedido a realizar la corrección por parte del equipo de auditorías de LP para evitar una posible afectación futura de $${costoFormateado} MXN.`;
 
+      textoGenerado.textContent = '✅ Vista previa del texto:';
+      textoOk.textContent = mensaje;
+      copiarBtn.style.display = 'inline-block';
+
+      copiarBtn.onclick = () => {
+        navigator.clipboard.writeText(mensaje).then(() => {
+          copiarBtn.textContent = '✅ Copiado';
+          setTimeout(() => copiarBtn.textContent = '📋 Copiar Texto', 2000);
+        });
+      };
+    }
+  </script>
+</body>
 </html>
